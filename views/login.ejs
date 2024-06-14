@@ -1,0 +1,70 @@
+
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+<body>
+    <nav>
+        <h1><a href="/">Crazy Smoothies</a></h1>
+        <ul>
+            <li><a href="/logout">Log Out</a></li>
+            <li><a href="/login">Log In</a></li>
+            <li><a href="/signup" class="btn">Sign up</a></li>
+        </ul>
+      </nav>
+    <h1>LOG IN</h1>
+    <form>
+        <label for="email">Email</label>
+        <input type="text" placeholder="Enter Email" id="email" name="email" required>
+        <div class="email error"></div>
+        <label for="password">password</label>
+        <input type="password" placeholder="Enter password" id="password" name="password" required>
+        <div class="password error"></div>
+        <button>Submit</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit' , async (e)=>{
+            e.preventDefault();
+
+
+
+            const email=form.email.value;
+            const password=form.password.value;
+            const emailError = document.querySelector('.email.error');
+            const passwordError = document.querySelector('.password.error');
+            emailError.textContent="";
+            passwordError.textContent="";
+            const endpoint ='/login'
+            try{
+                const res = await fetch(endpoint , {
+                    method: 'POST',
+                    headers : { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({email, password})
+                    
+                });
+                const data= await res.json();
+                console.log(data);
+                if(!data.user)
+                    {
+                        console.log('Hi')
+                        emailError.textContent="ERROR";
+                        passwordError.textContent="ERROR";
+                        console.log('error' , data.error.email , data.error.password)
+                    
+                    }else{
+                        location.assign('/')
+                    }
+            }
+            catch(err){
+                console.log(err)
+                emailError.textContent="ERROR";
+                passwordError.textContent="ERROR";
+            }
+
+
+            console.log(email,password)
+        } )
+    </script>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
