@@ -14,7 +14,7 @@ const requireAuth = (req,res,next)=>{
                 {   
                     console.log('VERIFIED!')
                     console.log(decodedToken)
-                    next();
+                    next();  
                 }
             })
         }
