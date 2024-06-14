@@ -9,7 +9,7 @@ const { requireAuth } = require('./middleware/authMiddleware.js');
 app.use(morgan('dev')) ; 
 
 
-const dbURI="mongodb+srv://1-mathmath33:almbiivi123@atlascluster.miyhqef.mongodb.net/node-auth?retryWrites=true&w=majority&appName=AtlasCluster"
+const dbURI="mongodb+srv://<username>:<password>@atlascluster.miyhqef.mongodb.net/<db-name>?retryWrites=true&w=majority&appName=AtlasCluster"
 mongoose.connect(dbURI).then(console.log('DB connected') , app.listen(3000));
 app.use(cookieParser()); // now we can access a cookie method on the response object 
 app.use(express.static('public'))
